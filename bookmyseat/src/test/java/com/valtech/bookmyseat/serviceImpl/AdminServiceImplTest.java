@@ -37,7 +37,7 @@ import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
 import com.valtech.bookmyseat.exception.EmailException;
 import com.valtech.bookmyseat.model.AdminDashBoardModel;
-import com.valtech.bookmyseat.model.BookingModel;
+import com.valtech.bookmyseat.model.BookingDetailsOfUserForAdminReport;
 import com.valtech.bookmyseat.model.ProjectModel;
 import com.valtech.bookmyseat.model.UserRequestsModel;
 import com.valtech.bookmyseat.service.EmailService;
@@ -71,19 +71,19 @@ class AdminServiceImplTest {
 	void testFetchDailyBookingDetails_givenData() throws DataBaseAccessException {
 		List<AdminDashBoardModel> mockData = new ArrayList<>();
 		mockData.add(new AdminDashBoardModel(LocalDate.of(2024, 2, 7), 50, 30, 20, 10, 40, 20, 20, 5));
-		when(adminDAO.fetchDailyBookingDetails()).thenReturn(mockData);
-		List<AdminDashBoardModel> result = adminServiceImpl.fetchDailyBookingDetails();
-		verify(adminDAO, times(1)).fetchDailyBookingDetails();
+		when(adminDAO.fetchAdminDashboardDetails()).thenReturn(mockData);
+		List<AdminDashBoardModel> result = adminServiceImpl.fetchAdminDashboardDetails();
+		verify(adminDAO, times(1)).fetchAdminDashboardDetails();
 		Assertions.assertEquals(mockData.size(), result.size());
 	}
 
 	@Test
 	void testFetchDailyBookingDetails_EmptyResult() {
-		when(adminDAO.fetchDailyBookingDetails()).thenReturn(new ArrayList<>());
+		when(adminDAO.fetchAdminDashboardDetails()).thenReturn(new ArrayList<>());
 		DataBaseAccessException exception = Assertions.assertThrows(DataBaseAccessException.class,
-				() -> adminServiceImpl.fetchDailyBookingDetails());
+				() -> adminServiceImpl.fetchAdminDashboardDetails());
 		Assertions.assertEquals("Error occurred while fetching Daily Booking Details...", exception.getMessage());
-		verify(adminDAO, times(1)).fetchDailyBookingDetails();
+		verify(adminDAO, times(1)).fetchAdminDashboardDetails();
 	}
 
 	@Test
@@ -189,11 +189,11 @@ class AdminServiceImplTest {
 
 	@Test
 	void testGetAllBookingDetails() {
-		List<BookingModel> mockBookingDetailsList = new ArrayList<>();
-		mockBookingDetailsList.add(new BookingModel());
-		when(adminDAO.getAllBookingDetails()).thenReturn(mockBookingDetailsList);
-		List<BookingModel> result = adminServiceImpl.getAllBookingDetails();
-		verify(adminDAO).getAllBookingDetails();
+		List<BookingDetailsOfUserForAdminReport> mockBookingDetailsList = new ArrayList<>();
+		mockBookingDetailsList.add(new BookingDetailsOfUserForAdminReport());
+		when(adminDAO.getAllBookingDetailsOfUserForAdminReport()).thenReturn(mockBookingDetailsList);
+		List<BookingDetailsOfUserForAdminReport> result = adminServiceImpl.getAllBookingDetails();
+		verify(adminDAO).getAllBookingDetailsOfUserForAdminReport();
 		Assertions.assertEquals(mockBookingDetailsList.size(), result.size());
 	}
 

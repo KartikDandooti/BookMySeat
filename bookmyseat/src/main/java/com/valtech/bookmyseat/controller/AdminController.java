@@ -32,7 +32,7 @@ import com.valtech.bookmyseat.exception.DataBaseAccessException;
 import com.valtech.bookmyseat.exception.DuplicateEmailException;
 import com.valtech.bookmyseat.exception.EmailException;
 import com.valtech.bookmyseat.model.AdminDashBoardModel;
-import com.valtech.bookmyseat.model.BookingModel;
+import com.valtech.bookmyseat.model.BookingDetailsOfUserForAdminReport;
 import com.valtech.bookmyseat.model.ProjectModel;
 import com.valtech.bookmyseat.model.UserModel;
 import com.valtech.bookmyseat.model.UserRequestsModel;
@@ -65,26 +65,29 @@ public class AdminController {
 	private ShiftDetailsService shiftDetailsService;
 
 	@GetMapping("/dashboard")
-	public List<AdminDashBoardModel> getDailyBookingDetails() throws DataBaseAccessException {
-		LOGGER.info("handling the request for Admin DashBoard");
+	public ResponseEntity<List<AdminDashBoardModel>> getAdminDashboardDetails() throws DataBaseAccessException {
+		LOGGER.info("Handling the request for Admin Dashboard");
+		List<AdminDashBoardModel> dashboardDetails = adminService.fetchAdminDashboardDetails();
 
-		return adminService.fetchDailyBookingDetails();
+		return ResponseEntity.status(HttpStatus.OK).body(dashboardDetails);
 	}
 
 	@GetMapping("/requests")
-	public List<UserRequestsModel> getUsersPendingRequests() throws DataBaseAccessException {
-		LOGGER.info("handling the request for Pending Requests");
+	public ResponseEntity<List<UserRequestsModel>> getUsersPendingRequests() {
+		LOGGER.info("Handling the request for Pending Requests");
+		List<UserRequestsModel> pendingRequests = adminService.fetchUserRequests();
 
-		return adminService.fetchUserRequests();
+		return ResponseEntity.ok(pendingRequests);
 	}
 
 	@PutMapping("/request/update")
-	public int updateUserRequests(@RequestBody List<UserRequestsModel> userRequestsModels,
-			@AuthenticationPrincipal UserDetails userDetails) throws DataBaseAccessException {
+	public ResponseEntity<Integer> updateUserRequests(@RequestBody List<UserRequestsModel> userRequestsModels,
+			@AuthenticationPrincipal UserDetails userDetails) {
 		LOGGER.info("Handling the request for Updating Multiple Requests");
 		User user = userService.findUserByEmail(userDetails.getUsername());
+		int updatedCount = adminService.updateUserRequests(userRequestsModels, user.getUserId());
 
-		return adminService.updateUserRequests(userRequestsModels, user.getUserId());
+		return ResponseEntity.ok(updatedCount);
 	}
 
 	@PostMapping("/createuser")
@@ -236,7 +239,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/reports")
-	public List<BookingModel> getAllBookingDetails() {
+	public List<BookingDetailsOfUserForAdminReport> getAllBookingDetails() {
 		LOGGER.info("handling request to fetch all booking details");
 
 		return adminService.getAllBookingDetails();

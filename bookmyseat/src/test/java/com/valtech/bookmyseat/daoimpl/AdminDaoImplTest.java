@@ -21,7 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
-import com.valtech.bookmyseat.mapper.BookingMapper;
+import com.valtech.bookmyseat.mapper.AdminDashBoardMapper;
 import com.valtech.bookmyseat.mapper.UserRequestsMapper;
 import com.valtech.bookmyseat.model.AdminDashBoardModel;
 import com.valtech.bookmyseat.model.UserRequestsModel;
@@ -58,8 +58,8 @@ class AdminDaoImplTest {
 				+ "SUM(CASE WHEN parking_type = 'FOUR_WHEELER' THEN 1 ELSE 0 END) AS total_four_wheeler_parking_booked, "
 				+ "SUM(CASE WHEN additional_desktop = true THEN 1 ELSE 0 END) AS total_desktop_booked "
 				+ "FROM booking WHERE start_date <= CURDATE() AND end_date >= CURDATE()";
-		when(jdbcTemplate.query(eq(expectedSql), any(BookingMapper.class))).thenReturn(expectedList);
-		List<AdminDashBoardModel> result = adminDaoImpl.fetchDailyBookingDetails();
+		when(jdbcTemplate.query(eq(expectedSql), any(AdminDashBoardMapper.class))).thenReturn(expectedList);
+		List<AdminDashBoardModel> result = adminDaoImpl.fetchAdminDashboardDetails();
 		assertEquals(expectedList, result);
 	}
 

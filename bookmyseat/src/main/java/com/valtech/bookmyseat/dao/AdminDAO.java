@@ -6,7 +6,7 @@ import com.valtech.bookmyseat.entity.Reserved;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
 import com.valtech.bookmyseat.model.AdminDashBoardModel;
-import com.valtech.bookmyseat.model.BookingModel;
+import com.valtech.bookmyseat.model.BookingDetailsOfUserForAdminReport;
 import com.valtech.bookmyseat.model.UserRequestsModel;
 
 /**
@@ -23,7 +23,7 @@ public interface AdminDAO {
 	 * @throws DataBaseAccessException which extends DataAccessException if there is
 	 *                                 an issue accessing the data.
 	 */
-	List<AdminDashBoardModel> fetchDailyBookingDetails() throws DataBaseAccessException;
+	List<AdminDashBoardModel> fetchAdminDashboardDetails() throws DataBaseAccessException;
 
 	/**
 	 * Retrieves a list of user all requests like pending,approved,rejected from the
@@ -69,5 +69,5 @@ public interface AdminDAO {
 	 *
 	 * @return A list containing all booking details.
 	 */
-	List<BookingModel> getAllBookingDetails();
+	List<BookingDetailsOfUserForAdminReport> getAllBookingDetailsOfUserForAdminReport();
 }

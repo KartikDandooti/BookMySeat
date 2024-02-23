@@ -1,13 +1,13 @@
 package com.valtech.bookmyseat.model;
-
+ 
 import java.time.LocalDate;
-
+ 
 import com.valtech.bookmyseat.entity.BookingType;
 import com.valtech.bookmyseat.entity.User;
-
+ 
 import lombok.Getter;
 import lombok.Setter;
-
+ 
 @Getter
 @Setter
 public class BookingModel {

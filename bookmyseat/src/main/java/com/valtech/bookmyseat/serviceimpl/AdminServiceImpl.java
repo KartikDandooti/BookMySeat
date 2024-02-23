@@ -21,7 +21,7 @@ import com.valtech.bookmyseat.entity.Reserved;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
 import com.valtech.bookmyseat.model.AdminDashBoardModel;
-import com.valtech.bookmyseat.model.BookingModel;
+import com.valtech.bookmyseat.model.BookingDetailsOfUserForAdminReport;
 import com.valtech.bookmyseat.model.ProjectModel;
 import com.valtech.bookmyseat.model.UserRequestsModel;
 import com.valtech.bookmyseat.service.AdminService;
@@ -46,9 +46,9 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private LocationDAO locationDAO;
 
-	public List<AdminDashBoardModel> fetchDailyBookingDetails() throws DataBaseAccessException {
+	public List<AdminDashBoardModel> fetchAdminDashboardDetails() throws DataBaseAccessException {
 		LOGGER.info("Fetching the daily booking details...");
-		List<AdminDashBoardModel> dailyBookingDetails = adminDAO.fetchDailyBookingDetails();
+		List<AdminDashBoardModel> dailyBookingDetails = adminDAO.fetchAdminDashboardDetails();
 		if (dailyBookingDetails.isEmpty()) {
 			throw new DataBaseAccessException("Error occurred while fetching Daily Booking Details...");
 		}
@@ -162,10 +162,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<BookingModel> getAllBookingDetails() {
+	public List<BookingDetailsOfUserForAdminReport> getAllBookingDetails() {
 		LOGGER.info("fetching all the booking details");
 
-		return adminDAO.getAllBookingDetails();
+		return adminDAO.getAllBookingDetailsOfUserForAdminReport();
 	}
 
 	@Override

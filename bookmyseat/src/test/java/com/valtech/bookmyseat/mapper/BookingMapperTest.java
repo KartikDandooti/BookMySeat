@@ -31,7 +31,7 @@ class BookingMapperTest {
 		when(resultSet.getInt("total_two_wheeler_parking_booked")).thenReturn(60);
 		when(resultSet.getInt("total_four_wheeler_parking_booked")).thenReturn(70);
 		when(resultSet.getInt("total_desktop_booked")).thenReturn(80);
-		RowMapper<AdminDashBoardModel> mapper = new BookingMapper();
+		RowMapper<AdminDashBoardModel> mapper = new AdminDashBoardMapper();
 		AdminDashBoardModel result = mapper.mapRow(resultSet, 1);
 		assertEquals(LocalDate.of(2023, 10, 15), result.getDate());
 		assertEquals(10, result.getSeatsBooked());

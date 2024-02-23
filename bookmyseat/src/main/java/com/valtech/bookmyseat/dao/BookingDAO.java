@@ -9,6 +9,7 @@ import com.valtech.bookmyseat.entity.Seat;
 import com.valtech.bookmyseat.entity.Shift;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
+import com.valtech.bookmyseat.model.BookedSeatModel;
 import com.valtech.bookmyseat.model.BookingDTO;
 import com.valtech.bookmyseat.model.BookingModel;
 
@@ -63,9 +64,16 @@ public interface BookingDAO {
 	 */
 	void approvalAttendance(int userId);
 
-	boolean hasAlreadyBookedForDate(int userId, LocalDate startDate, LocalDate endDate);
+	boolean hasAlreadyBookedForDate(int userId, LocalDate startDate, LocalDate endDate) throws DataBaseAccessException;
 
 	void createBookingMapping(BookingModel booking, int bookingId);
 
-	List<Seat> getAllBookedSeat();
+	/**
+	 * Retrieves a list of all booked seat models from the database.
+	 *
+	 * @return A list of {@code BookedSeatModel} objects representing all booked
+	 *         seats.
+	 * @throws DataBaseAccessException if there is an issue accessing the database.
+	 */
+	List<BookedSeatModel> getAllBookedSeat() throws DataBaseAccessException;
 }

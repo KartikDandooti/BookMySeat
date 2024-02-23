@@ -131,4 +131,25 @@ public interface EmailService {
 	 * @throws TemplateException If there is an issue with the email template.
 	 */
 	String getUserOtpDetails(User user, String otpValue) throws IOException, TemplateException;
+
+	/**
+	 * Sends a cancellation email to the user for a modified booking.
+	 *
+	 * @param userModifyBooking The UserModifyBooking object containing details of
+	 *                          the modified booking.
+	 * @throws EmailException if there is an error sending the email.
+	 */
+
+	void sendCancelSeatEmailToUser(UserModifyBooking userModifyBooking) throws EmailException;
+
+	/**
+	 * Generates the email content for notifying a user about a canceled seat in a
+	 * modified booking.
+	 *
+	 * @param userModifyBooking The UserModifyBooking object containing details of
+	 *                          the modified booking.
+	 * @return A string representing the email content.
+	 * @throws EmailException if there is an error generating the email content.
+	 */
+	String getEmailContentForCancelSeat(UserModifyBooking userModifyBooking) throws EmailException;
 }

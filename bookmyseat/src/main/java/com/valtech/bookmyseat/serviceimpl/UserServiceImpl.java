@@ -155,21 +155,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUserSeat(int seatNumber, int floorId, int bookingId) throws EmailException {
-		LOGGER.info("Successfully updated user seat");
+	public void updateUserSeat(int seatNumber, int floorId, int bookingId)
+			throws EmailException, DataBaseAccessException {
+		LOGGER.info("updating the user seat");
 		int seatId = userDAO.getSeatIdByNumberAndFloor(seatNumber, floorId);
-		userDAO.updateUserSeat(seatId, bookingId);
-		int userId = userDAO.getUserIdByBookingId(bookingId);
-		List<UserModifyBooking> modifyBooking = userDAO.getBookingDeatilsOfUser(userId, seatId);
-		UserModifyBooking modifyBookingOfUser = modifyBooking.get(0);
-		emailService.sendUpdateSeatEmailToUser(modifyBookingOfUser);
-		userDAO.updateUserSeat(seatId, bookingId);
+		if (userDAO.updateUserSeat(seatId, bookingId) > 0) {
+			LOGGER.info("successfully updated the user seat");
+			int userId = userDAO.getUserIdByBookingId(bookingId);
+			List<UserModifyBooking> modifyBooking = userDAO.getBookingDeatilsOfUser(userId, seatId);
+			UserModifyBooking modifyBookingOfUser = modifyBooking.get(0);
+			emailService.sendUpdateSeatEmailToUser(modifyBookingOfUser);
+		}
+		throw new DataBaseAccessException("error while updating the user seat");
 	}
 
 	@Override
-	public void cancelUserSeat(int bookingId) {
-		LOGGER.info("Successfully deleted user seat");
-		userDAO.cancelUserBooking(bookingId);
+	public void cancelUserSeat(int bookingId, int userId) throws EmailException {
+		LOGGER.info("cancel the user seat");
+		int seatId = userDAO.getSeatIdByBookingId(bookingId);
+		if (userDAO.cancelUserBooking(bookingId) > 0) {
+			List<UserModifyBooking> modifyBooking = userDAO.getBookingDeatilsOfUser(userId, seatId);
+			UserModifyBooking modifyBookingOfUser = modifyBooking.get(0);
+			emailService.sendCancelSeatEmailToUser(modifyBookingOfUser);
+		}
+		throw new DataBaseAccessException("error while cancelling the user seat");
 	}
 
 	@Override

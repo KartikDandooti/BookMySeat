@@ -217,21 +217,21 @@ public class UserDaoImpl implements UserDAO {
 	}
 
 	@Override
-	public void updateUserSeat(int seatId, int bookingId) {
+	public int updateUserSeat(int seatId, int bookingId) throws DataBaseAccessException {
+		LOGGER.info("excuting the query to update seat");
 		String sql = "UPDATE BOOKING SET SEAT_ID = ? WHERE BOOKING_ID = ?";
-		rowsAffected = jdbcTemplate.update(sql, seatId, bookingId);
-		if (rowsAffected == 0) {
-			throw new IllegalArgumentException("Booking not found with id: " + bookingId);
-		}
+		LOGGER.debug("excuting the query to update seat query:{}", sql);
+
+		return jdbcTemplate.update(sql, seatId, bookingId);
 	}
 
 	@Override
-	public void cancelUserBooking(int bookingId) {
-		String query = "UPDATE BOOKING SET BOOKING_STATUS = FALSE WHERE BOOKING_ID = ?";
-		rowsAffected = jdbcTemplate.update(query, bookingId);
-		if (rowsAffected == 0) {
-			throw new IllegalArgumentException("Booking not found with id: " + bookingId);
-		}
+	public int cancelUserBooking(int bookingId) throws DataBaseAccessException {
+		LOGGER.info("excuting query to delete cancel seat");
+		String sql = "UPDATE BOOKING SET BOOKING_STATUS = FALSE WHERE BOOKING_ID = ?";
+		LOGGER.debug("excuting query to delete cancel seat query:{}", sql);
+
+		return jdbcTemplate.update(sql, bookingId);
 	}
 
 	@Override
@@ -327,5 +327,14 @@ public class UserDaoImpl implements UserDAO {
 		String updateUserPasswordQuery = "UPDATE user SET password = ? WHERE user_id = ?";
 		rowsAffected = jdbcTemplate.update(updateUserPasswordQuery, passwordEncoder.encode(newPassword), userId);
 		LOGGER.debug("Password updated for user ID {}: Rows affected = {}", userId, rowsAffected);
+	}
+
+	@Override
+	public Integer getSeatIdByBookingId(int bookingId) throws DataBaseAccessException {
+		LOGGER.info("excuting the query to fetch seatId ");
+		String sql = "SELECT seat_id from booking " + " WHERE booking_id=?";
+		LOGGER.debug("excuting the query to fetch seatId :{}", sql);
+
+		return jdbcTemplate.queryForObject(sql, Integer.class, bookingId);
 	}
 }

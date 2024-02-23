@@ -23,6 +23,7 @@ import com.valtech.bookmyseat.entity.Shift;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.CustomDataAccessException;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
+import com.valtech.bookmyseat.model.BookedSeatModel;
 import com.valtech.bookmyseat.model.BookingDTO;
 import com.valtech.bookmyseat.model.BookingModel;
 import com.valtech.bookmyseat.service.BookingService;
@@ -135,8 +136,13 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public List<Seat> getAllBookedSeat() {
-		
-		return bookingDAO.getAllBookedSeat();
+	public List<BookedSeatModel> getAllBookedSeat() throws DataBaseAccessException {
+		LOGGER.info("fetching the All Booked Seats ");
+		List<BookedSeatModel> bookedSeats = bookingDAO.getAllBookedSeat();
+		if (bookedSeats.isEmpty()) {
+			throw new DataBaseAccessException("Error occured while fetching Booked Seats");
+		}
+		LOGGER.info("Successfully fetched the All Booked  Seats");
+		return bookedSeats;
 	}
 }

@@ -273,9 +273,11 @@ public class AdminController {
 	}
 
 	@PutMapping("/cancelBooking/{bookingId}")
-	public ResponseEntity<String> cancelBooking(@PathVariable("bookingId") int bookingId) {
+	public ResponseEntity<String> cancelBooking(@PathVariable("bookingId") int bookingId,@AuthenticationPrincipal UserDetails userDetails) throws  EmailException {
 		LOGGER.info("Seat Canceled Successfully");
-		userService.cancelUserSeat(bookingId);
+		User user=userService.findUserByEmail(userDetails.getUsername());
+		
+		userService.cancelUserSeat(bookingId,user.getUserId());
 
 		return ResponseEntity.status(HttpStatus.OK).body("User Booking cancel successfully.");
 	}

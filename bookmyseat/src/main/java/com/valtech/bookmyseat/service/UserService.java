@@ -115,20 +115,31 @@ public interface UserService {
 	List<Booking> getUserDashboardDetails(int userId);
 
 	/**
-	 * Updates the seat details associated with a booking.
+	 * Updates the seat information for a user with the provided seat number, floor
+	 * ID, and booking ID.
 	 * 
-	 * @param seatNumber The new seat number to be assigned.
+	 * @param seatNumber The number of the seat to be updated.
 	 * @param floorId    The ID of the floor where the seat is located.
-	 * @param bookingId  The ID of the booking to be updated.
+	 * @param bookingId  The ID of the booking associated with the seat.
+	 * @throws EmailException          If there is an issue with sending an email
+	 *                                 notification related to the seat update.
+	 * @throws DataBaseAccessException If there is an issue accessing the database
+	 *                                 while updating the seat information.
 	 */
-	void updateUserSeat(int seatNumber, int floorId, int bookingId) throws EmailException;
+	void updateUserSeat(int seatNumber, int floorId, int bookingId) throws EmailException, DataBaseAccessException;
 
 	/**
-	 * Cancels a user's booking and frees up the associated seat.
-	 * 
-	 * @param bookingId The ID of the booking to be canceled.
+	 * Cancels the seat booked by the specified user for the given booking ID.
+	 *
+	 * @param bookingId The ID of the booking for which the seat needs to be
+	 *                  canceled.
+	 * @param userId    The ID of the user who booked the seat to be canceled.
+	 * @throws DataBaseAccessException If there is an issue accessing the database
+	 *                                 while canceling the seat.
+	 * @throws EmailException          If there is an issue sending an email
+	 *                                 notification about the cancellation.
 	 */
-	void cancelUserSeat(int bookingId);
+	void cancelUserSeat(int bookingId, int userId) throws DataBaseAccessException, EmailException;
 
 	/**
 	 * Cancels the booking(s) associated with the specified user ID.

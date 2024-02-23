@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -25,7 +24,9 @@ import com.valtech.bookmyseat.entity.Shift;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
 import com.valtech.bookmyseat.mapper.AttendanceRowMapper;
+import com.valtech.bookmyseat.mapper.BookedSeatRowMapper;
 import com.valtech.bookmyseat.mapper.BookingDTORowMapper;
+import com.valtech.bookmyseat.model.BookedSeatModel;
 import com.valtech.bookmyseat.model.BookingDTO;
 import com.valtech.bookmyseat.model.BookingModel;
 
@@ -128,7 +129,7 @@ public class BookingDAOImpl implements BookingDAO {
 	}
 
 	@Override
-	public boolean hasAlreadyBookedForDate(int userId, LocalDate startDate, LocalDate endDate) {
+	public boolean hasAlreadyBookedForDate(int userId, LocalDate startDate, LocalDate endDate) throws DataBaseAccessException{
 		String selectQuery = "SELECT COUNT(*) FROM BOOKING WHERE USER_ID = ? AND ((START_DATE <= ? AND END_DATE >= ?) OR (START_DATE >= ? AND END_DATE <= ?)) AND BOOKING_STATUS = true";
 		int count = jdbcTemplate.queryForObject(selectQuery, Integer.class, userId, startDate, endDate, startDate,
 				endDate);
@@ -137,14 +138,13 @@ public class BookingDAOImpl implements BookingDAO {
 	}
 
 	@Override
-	public List<Seat> getAllBookedSeat() {
-		String sql = "SELECT s.seat_number, s.floor_id, b.booking_id, b.booking_status, bm.booked_date "
-				+ "FROM seat s "
-				+ "JOIN booking b ON s.seat_id = b.seat_id "
-				+ "JOIN booking_mapping bm ON b.booking_id = bm.booking_id "
-				+ "WHERE bm.booked_date= curdate() "
-				+ "AND b.booking_status=true ";
-
-		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Seat.class));
+	public List<BookedSeatModel> getAllBookedSeat() throws DataBaseAccessException {
+		LOGGER.info("excuting the query to fetch the booked seats");
+		String sql = "SELECT S.seat_number,S.floor_id,B.booking_id,B.booking_status,B.start_date,B.end_date,U.user_id "
+				+ "FROM user U " + "JOIN booking B ON U.user_id = B.user_id " + "JOIN seat S ON S.seat_id=B.seat_id ";
+		LOGGER.debug("excuting the query to fetch the booked seats query:{}",sql);
+		
+		return jdbcTemplate.query(sql, new BookedSeatRowMapper());
 	}
+
 }

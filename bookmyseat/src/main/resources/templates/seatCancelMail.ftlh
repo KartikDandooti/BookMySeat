@@ -36,7 +36,7 @@
 <body>
     <div class="container">
         <h3><b></b>Hello ${userModifyBooking.userName}</b></h3>
-        <p> <span class="firstLine"> This message is to inform you that your seat has been changed due to management needs in the <span style="color: rgb(40, 233, 220);"> BookMySeat </span> application and has been assigned to the mentioned seat below.</span><br/><br/>
+        <p> <span class="firstLine"> This message is to inform you that your seat has been Canceld due to management needs in the <span style="color: rgb(40, 233, 220);"> BookMySeat </span> application</span><br/><br/>
             </p>
             <table class="Details">
                 <thead >

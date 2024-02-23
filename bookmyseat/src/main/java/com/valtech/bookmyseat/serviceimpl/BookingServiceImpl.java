@@ -58,7 +58,7 @@ public class BookingServiceImpl implements BookingService {
 	public int createBooking(BookingModel booking, User user) throws DataBaseAccessException, SQLException {
 		LOGGER.info("inserting the new booking");
 		booking.setUserId(user.getUserId());
-		Seat seat = seatDAO.findSeatById(booking.getSeatId());
+		Seat seat = seatDAO.findSeatById(booking.getSeatNumber(), booking.getFloorId());
 		Shift shift = shiftDAO.findShiftByShiftId(booking.getShiftId());
 
 		if (hasAlreadyBookedForDateCheck(user.getUserId(), booking.getStartDate(), booking.getEndDate())) {
@@ -132,5 +132,11 @@ public class BookingServiceImpl implements BookingService {
 		} catch (DataAccessException e) {
 			throw new CustomDataAccessException("Failed to update User's attendance !", e);
 		}
+	}
+
+	@Override
+	public List<Seat> getAllBookedSeat() {
+
+		return bookingDAO.getAllBookedSeat();
 	}
 }

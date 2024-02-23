@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valtech.bookmyseat.entity.BookingMapping;
+import com.valtech.bookmyseat.entity.Seat;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
 import com.valtech.bookmyseat.model.BookingDTO;
@@ -106,5 +107,10 @@ public class BookingController {
 		LOGGER.info("Sending User attendance approval!");
 
 		return ResponseEntity.ok("User's attendance updated Succesfully !");
+	}
+
+	@GetMapping("/bookedSeat")
+	public List<Seat> getAllBookedSeat() {
+		return bookingService.getAllBookedSeat();
 	}
 }

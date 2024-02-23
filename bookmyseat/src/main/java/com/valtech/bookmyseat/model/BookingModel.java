@@ -23,7 +23,7 @@ public class BookingModel {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int floorId;
-	private int seatId;
+	private int seatNumber;
 	private int shiftId;
 	private User user;
 	private Boolean markedStatus;

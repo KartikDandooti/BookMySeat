@@ -48,9 +48,9 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public Seat findSeatById(int seatId) {
-		String selectQuery = "SELECT * FROM SEAT WHERE SEAT_ID = ?";
+	public Seat findSeatById(int seatNumber, int floorId) {
+		String selectQuery = "SELECT * FROM SEAT WHERE SEAT_NUMBER = ? AND FLOOR_ID = ?";
 
-		return jdbcTemplate.queryForObject(selectQuery, new SeatRowMapper(), seatId);
+		return jdbcTemplate.queryForObject(selectQuery, new SeatRowMapper(), seatNumber, floorId);
 	}
 }

@@ -29,5 +29,5 @@ public interface SeatDAO {
 	 * @return The Seat object corresponding to the provided seat ID, or null if no
 	 *         such seat is found.
 	 */
-	Seat findSeatById(int seatId);
+	Seat findSeatById(int seatNumber, int floorId);
 }

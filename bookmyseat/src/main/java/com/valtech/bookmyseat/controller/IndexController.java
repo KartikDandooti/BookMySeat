@@ -45,23 +45,23 @@ public class IndexController {
 		return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
 	}
 
-//	@PostMapping("/registration")
-//	public ResponseEntity<String> createUser(@RequestBody UserModel userModel) throws EmailException {
-//		try {
-//			LOGGER.info("handling the registration request");
-//			userService.createUserDetail(userModel.getUserDetails());
-//
-//			return new ResponseEntity<>("User registered Succesfully", HttpStatus.OK);
-//		} catch (DuplicateEmailException e) {
-//			LOGGER.error("Handling DuplicateEmailException:{}", e.getMessage());
-//
-//			return ResponseEntity.badRequest().body(e.getMessage());
-//		} catch (DuplicateUserIdException e) {
-//			LOGGER.error("Handling DuplicateUserIdException:{}", e.getMessage());
-//
-//			return ResponseEntity.badRequest().body(e.getMessage());
-//		}
-//	}
+	@PostMapping("/registration")
+	public ResponseEntity<String> createUser(@RequestBody UserModel userModel) throws EmailException {
+		try {
+			LOGGER.info("handling the registration request");
+			userService.createUserDetail(userModel.getUserDetails());
+
+			return new ResponseEntity<>("User registered Succesfully", HttpStatus.OK);
+		} catch (DuplicateEmailException e) {
+			LOGGER.error("Handling DuplicateEmailException:{}", e.getMessage());
+
+			return ResponseEntity.badRequest().body(e.getMessage());
+		} catch (DuplicateUserIdException e) {
+			LOGGER.error("Handling DuplicateUserIdException:{}", e.getMessage());
+
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
 	@PutMapping("/user/changepassword")
 	public ResponseEntity<String> changeUserPassword(@AuthenticationPrincipal UserDetails userDetails,

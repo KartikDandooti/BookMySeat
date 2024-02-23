@@ -2,7 +2,7 @@ package com.valtech.bookmyseat.daoimpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class SeatDAOImpl implements SeatDAO {
 	}
 
 	@Override
-	public List<Seat> findAvailableSeatsByFloorOnDate(int floorId, Date startDate, Date endDate) {
+	public List<Seat> findAvailableSeatsByFloorOnDate(int floorId, LocalDate startDate, LocalDate endDate) {
 		String selectQuery = "SELECT * FROM SEAT S WHERE S.FLOOR_ID = ? AND S.SEAT_ID  IN ( "
 				+ "SELECT B.SEAT_ID FROM BOOKING B WHERE (CURDATE() BETWEEN B.START_DATE AND B.END_DATE) "
 				+ "OR (? <= B.START_DATE AND ? >= B.END_DATE) " + "OR (? >= B.START_DATE AND ? <= B.END_DATE) "

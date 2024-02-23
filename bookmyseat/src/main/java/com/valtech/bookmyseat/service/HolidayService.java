@@ -40,16 +40,16 @@ public interface HolidayService {
 	 * @return A list of holidays.
 	 */
 	List<Holiday> getHoildayBydate();
+
 	/**
 	 * Retrieves a list of all holidays.
 	 * 
 	 * This method fetches a list of all holidays available in the system.
-	 * Holidays typically include public holidays, special observances, or 
+	 * Holidays typically include public holidays, special observances, or
 	 * any other designated non-working days.
 	 * 
-	 * @return A list containing objects of type {@code Holiday}, representing 
+	 * @return A list containing objects of type {@code Holiday}, representing
 	 *         all holidays available in the system.
 	 */
 	List<Holiday> getAllHolidays();
-
 }

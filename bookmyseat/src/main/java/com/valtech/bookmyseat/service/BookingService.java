@@ -1,11 +1,11 @@
 package com.valtech.bookmyseat.service;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import com.valtech.bookmyseat.entity.Booking;
 import com.valtech.bookmyseat.entity.BookingMapping;
+import com.valtech.bookmyseat.entity.Seat;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
 import com.valtech.bookmyseat.model.BookingDTO;
@@ -50,7 +50,7 @@ public interface BookingService {
 	 * @param user    The user for whom the booking is being made.
 	 * @throws DataBaseAccessException If an error occurs while accessing the
 	 *                                 database.
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	int createBooking(BookingModel booking, User user) throws DataBaseAccessException, SQLException;
 
@@ -64,4 +64,6 @@ public interface BookingService {
 	List<BookingDTO> getAllBookings() throws DataBaseAccessException;
 
 	void createBookingMapping(BookingModel booking, int bookingId);
+
+	List<Seat> getAllBookedSeat();
 }

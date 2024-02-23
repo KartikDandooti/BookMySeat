@@ -1,5 +1,6 @@
 package com.valtech.bookmyseat.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,9 @@ import com.valtech.bookmyseat.model.JwtAuthResponse;
 import com.valtech.bookmyseat.model.LoginRequest;
 import com.valtech.bookmyseat.model.UserBookingHistoryModel;
 import com.valtech.bookmyseat.model.UserModel;
+
+import freemarker.template.TemplateException;
+import jakarta.mail.MessagingException;
 
 /**
  * Service interface for handling user-related operations.
@@ -181,7 +185,7 @@ public interface UserService {
 	 * @throws TemplateException  If an error occurs while processing the email
 	 *                            template.
 	 */
-//	String handleForgotPassword(String emailId) throws MessagingException, IOException, TemplateException;
+	String handleForgotPassword(String emailId) throws MessagingException, IOException, TemplateException;
 
 	/**
 	 * Generates a one-time password (OTP) for the user associated with the provided
@@ -190,7 +194,7 @@ public interface UserService {
 	 * @param emailId The email ID of the user for whom the OTP is to be generated.
 	 * @return True if the OTP is generated successfully; otherwise, false.
 	 */
-//	boolean generateUserOtp(String emailId);
+	boolean generateUserOtp(String emailId);
 
 	/**
 	 * Generates a random one-time password (OTP).
@@ -219,5 +223,4 @@ public interface UserService {
 	 * @return True if the password is updated successfully; otherwise, false.
 	 */
 	boolean updateUserForgotPassword(int userId, String newPassword);
-
 }

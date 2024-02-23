@@ -15,11 +15,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.valtech.bookmyseat.dao.ProjectDAO;
 import com.valtech.bookmyseat.dao.RoleDAO;
 import com.valtech.bookmyseat.dao.UserDAO;
 import com.valtech.bookmyseat.entity.ApprovalStatus;
 import com.valtech.bookmyseat.entity.Booking;
 import com.valtech.bookmyseat.entity.Otp;
+import com.valtech.bookmyseat.entity.Project;
 import com.valtech.bookmyseat.entity.Role;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
@@ -44,6 +46,9 @@ public class UserDaoImpl implements UserDAO {
 	private RoleDAO roleDAO;
 
 	@Autowired
+	private ProjectDAO projectDAO;
+
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	private int rowsAffected;
@@ -64,11 +69,13 @@ public class UserDaoImpl implements UserDAO {
 	@Override
 	public User userRegistration(User user) {
 		LOGGER.info("Executing the query to store the user details in the database");
-		String createQuery = "INSERT INTO USER (USER_ID, EMAIL_ID, FIRST_NAME, LAST_NAME, PASSWORD, APPROVAL_STATUS, PHONE_NUMBER, REGISTERED_DATE, MODIFIED_DATE, CREATED_BY, MODIFIED_BY, ROLE_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String createQuery = "INSERT INTO USER (USER_ID, EMAIL_ID, FIRST_NAME, LAST_NAME, PASSWORD, APPROVAL_STATUS, PHONE_NUMBER, REGISTERED_DATE, MODIFIED_DATE, CREATED_BY, MODIFIED_BY, ROLE_ID,PROJECT_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		Role role = roleDAO.getUserRoleByRoleID(2);
+		Project project = projectDAO.getProjectById(6);
 		jdbcTemplate.update(createQuery, user.getUserId(), user.getEmailId(), user.getFirstName(), user.getLastName(),
 				passwordEncoder.encode(user.getPassword()), ApprovalStatus.PENDING.name(), user.getPhoneNumber(),
-				LocalDateTime.now(), LocalDateTime.now(), user.getUserId(), user.getUserId(), role.getRoleId());
+				LocalDateTime.now(), LocalDateTime.now(), user.getUserId(), user.getUserId(), role.getRoleId(),
+				project.getProjectId());
 
 		return user;
 	}
@@ -300,12 +307,13 @@ public class UserDaoImpl implements UserDAO {
 		return otpValue;
 	}
 
-//	@Override
-//	public void saveOtp(Otp otp) {
-//		String saveOtp = "INSERT INTO otp (user_id, otp_value) VALUES (?, ?)";
-//		rowsAffected = jdbcTemplate.update(saveOtp, otp.get, otp.getOtpValue());
-//		LOGGER.debug("Saving otpValue {} and userId {} into the otp table ", otp.getOtpValue(), otp.getUserId());
-//	}
+	@Override
+	public void saveOtp(Otp otp) {
+		String saveOtp = "INSERT INTO otp (user_id, otp_value) VALUES (?, ?)";
+		rowsAffected = jdbcTemplate.update(saveOtp, otp.getUser().getUserId(), otp.getOtpValue());
+		LOGGER.debug("Saving otpValue {} and userId {} into the otp table ", otp.getOtpValue(),
+				otp.getUser().getUserId());
+	}
 
 	@Override
 	public int getRowsAffected() {
@@ -313,6 +321,7 @@ public class UserDaoImpl implements UserDAO {
 
 		return rowsAffected;
 	}
+
 	@Override
 	public void updateUseForgetPassword(int userId, String newPassword) {
 		String updateUserPasswordQuery = "UPDATE user SET password = ? WHERE user_id = ?";

@@ -1,6 +1,6 @@
 package com.valtech.bookmyseat.dao;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.valtech.bookmyseat.entity.Seat;
@@ -20,7 +20,7 @@ public interface SeatDAO {
 	 * @return A list of available Seat objects on the specified floor within the
 	 *         given date range.
 	 */
-	List<Seat> findAvailableSeatsByFloorOnDate(int floorId, Date startDate, Date endDate);
+	List<Seat> findAvailableSeatsByFloorOnDate(int floorId, LocalDate startDate, LocalDate endDate);
 
 	/**
 	 * Retrieves the Seat object associated with the provided seat ID.
@@ -29,5 +29,5 @@ public interface SeatDAO {
 	 * @return The Seat object corresponding to the provided seat ID, or null if no
 	 *         such seat is found.
 	 */
-	Seat findSeatById(int seatId);
+	Seat findSeatById(int seatNumber, int floorId);
 }

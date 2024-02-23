@@ -58,27 +58,27 @@ public class UserController {
 		return userService.getUserDashboardDetails(userId);
 	}
 
-//	@PostMapping("/forgot-password")
-//	public ResponseEntity<?> handleForgotPasswordRequest(@RequestBody UserModel userModel) throws MessagingException,
-//			IOException, TemplateException, EmptyResultDataAccessException, NullPointerException {
-//		String email = userModel.getEmailId();
-//		User user = userService.findUserByEmail(email);
-//		int userId = user.getUserId();
-//		if (Objects.isNull(email)) {
-//			LOGGER.debug("No user input for email");
-//
-//			return ResponseEntity.badRequest().body("Email is required");
-//		} else {
-//			userService.handleForgotPassword(email);
-//			LOGGER.debug("Sending OTP to user whose email is: {}", email);
-//			UserForgotPasswordModel forgotPasswordResponse = new UserForgotPasswordModel();
-//			forgotPasswordResponse.setResponse("OTP has successfully been sent, please check your provided email");
-//			forgotPasswordResponse.setUserId(userId);
-//			LOGGER.debug("Sending confirmation response for user: {}", user);
-//
-//			return new ResponseEntity<>(forgotPasswordResponse, HttpStatus.OK);
-//		}
-//	}
+	@PostMapping("/forgot-password")
+	public ResponseEntity<?> handleForgotPasswordRequest(@RequestBody UserModel userModel) throws MessagingException,
+			IOException, TemplateException, EmptyResultDataAccessException, NullPointerException {
+		String email = userModel.getEmailId();
+		User user = userService.findUserByEmail(email);
+		int userId = user.getUserId();
+		if (Objects.isNull(email)) {
+			LOGGER.debug("No user input for email");
+
+			return ResponseEntity.badRequest().body("Email is required");
+		} else {
+			userService.handleForgotPassword(email);
+			LOGGER.debug("Sending OTP to user whose email is: {}", email);
+			UserForgotPasswordModel forgotPasswordResponse = new UserForgotPasswordModel();
+			forgotPasswordResponse.setResponse("OTP has successfully been sent, please check your provided email");
+			forgotPasswordResponse.setUserId(userId);
+			LOGGER.debug("Sending confirmation response for user: {}", user);
+
+			return new ResponseEntity<>(forgotPasswordResponse, HttpStatus.OK);
+		}
+	}
 
 	@PostMapping("/verify-otp/{userId}")
 	public ResponseEntity<String> verifyOtp(@PathVariable int userId, @RequestBody OtpModel otpModel) {

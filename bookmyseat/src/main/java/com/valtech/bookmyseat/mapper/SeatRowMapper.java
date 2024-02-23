@@ -16,18 +16,12 @@ public class SeatRowMapper implements RowMapper<Seat> {
 
 	@Override
 	public Seat mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Seat seat = new Seat();
+		seat.setSeatId(rs.getInt("seat_id"));
+		seat.setSeatNumber(rs.getInt("seat_number"));
+		seat.setSeatStatus(false);
+		seat.setFloor(floorDAO.getFloorById(rs.getInt("floor_id")));
 
-//	@Override
-//	public Seat mapRow(ResultSet rs, int rowNum) throws SQLException {
-//		Seat seat = new Seat();
-//		seat.setSeatId(rs.getInt("seat_id"));
-//		seat.setSeatNumber(rs.getInt("seat_number"));
-//		seat.setSeatStatus(false);
-//		seat.setFloor(floorDAO.getFloorById(rs.getInt("floor_id")));
-//
-//		return seat;
-//	}
+		return seat;
+	}
 }

@@ -1,29 +1,20 @@
-//package com.valtech.bookmyseat.mapper;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.Mockito.when;
-//
-//import java.sql.Date;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//
-//import com.valtech.bookmyseat.entity.BookingType;
-//import com.valtech.bookmyseat.model.BookingModel;
-//
-//@ExtendWith(MockitoExtension.class)
-//class BookingDetailsMapperTest {
-//
-//	@Mock
-//	private ResultSet resultSet;
-//
-//	@InjectMocks
-//	private BookingDetailsMapper bookingDetailsMapper;
+package com.valtech.bookmyseat.mapper;
+
+import java.sql.ResultSet;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class BookingDetailsMapperTest {
+
+	@Mock
+	private ResultSet resultSet;
+
+	@InjectMocks
+	private BookingDetailsMapper bookingDetailsMapper;
 //
 //	@Test
 //	void testMapRow() throws SQLException {
@@ -51,4 +42,4 @@
 //		assertEquals(java.sql.Date.valueOf("2024-02-22"), bookingModel.getEndDate());
 //		assertEquals(BookingType.DAILY, bookingModel.getBookingType());
 //	}
-//}
+}

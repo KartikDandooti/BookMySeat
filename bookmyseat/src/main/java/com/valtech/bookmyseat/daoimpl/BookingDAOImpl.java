@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -133,5 +134,17 @@ public class BookingDAOImpl implements BookingDAO {
 				endDate);
 
 		return count > 0;
+	}
+
+	@Override
+	public List<Seat> getAllBookedSeat() {
+		String sql = "SELECT s.seat_number, s.floor_id, b.booking_id, b.booking_status, bm.booked_date "
+				+ "FROM seat s "
+				+ "JOIN booking b ON s.seat_id = b.seat_id "
+				+ "JOIN booking_mapping bm ON b.booking_id = bm.booking_id "
+				+ "WHERE bm.booked_date= curdate() "
+				+ "AND b.booking_status=true ";
+
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Seat.class));
 	}
 }

@@ -32,7 +32,7 @@ class ShiftDaoImplTest {
 	private JdbcTemplate jdbcTemplate;
 
 	@InjectMocks
-	private ShiftServiceDaoImpl shiftServiceDao;
+	private ShiftDaoImpl shiftDaoImpl;
 	private List<Shift> shiftList;
 
 	@BeforeEach
@@ -57,7 +57,7 @@ class ShiftDaoImplTest {
 	void testGetAllShiftDetails() {
 		List<Shift> ShiftList = Arrays.asList();
 		when(jdbcTemplate.query(anyString(), any(BeanPropertyRowMapper.class))).thenReturn(ShiftList);
-		List<Shift> result = shiftServiceDao.getAllShiftDetails();
+		List<Shift> result = shiftDaoImpl.getAllShiftDetails();
 		verify(jdbcTemplate).query(eq("SELECT * FROM shift"), any(BeanPropertyRowMapper.class));
 		assertEquals(ShiftList.size(), result.size());
 	}
@@ -66,7 +66,7 @@ class ShiftDaoImplTest {
 	void testDeleteShiftDetailsById() {
 		int shiftIdToDelete = 1;
 		when(jdbcTemplate.update(anyString(), eq(shiftIdToDelete))).thenReturn(1);
-		boolean result = shiftServiceDao.deleteShiftDetailsById(shiftIdToDelete);
+		boolean result = shiftDaoImpl.deleteShiftDetailsById(shiftIdToDelete);
 		assertEquals(true, result);
 	}
 
@@ -78,7 +78,7 @@ class ShiftDaoImplTest {
 		shiftToUpdate.setStartTime(LocalTime.of(7, 0));
 		shiftToUpdate.setEndTime(LocalTime.of(15, 0));
 		when(jdbcTemplate.update(anyString(), any(), any(), any(), anyInt())).thenReturn(1);
-		shiftServiceDao.updateShiftTime(1, shiftToUpdate);
+		shiftDaoImpl.updateShiftTime(1, shiftToUpdate);
 		verify(jdbcTemplate).update(anyString(), any(), any(), any(), anyInt());
 	}
 
@@ -89,7 +89,7 @@ class ShiftDaoImplTest {
 		shiftToAdd.setStartTime(LocalTime.of(8, 0));
 		shiftToAdd.setEndTime(LocalTime.of(16, 0));
 		when(jdbcTemplate.queryForObject(anyString(), eq(Integer.class))).thenReturn(1);
-		shiftServiceDao.addShiftTime(shiftToAdd);
+		shiftDaoImpl.addShiftTime(shiftToAdd);
 		verify(jdbcTemplate).update(anyString(), eq("Test Shift"), eq(LocalTime.of(8, 0)), eq(LocalTime.of(16, 0)),
 				eq(1), eq(1), any(LocalDateTime.class), any(LocalDateTime.class));
 	}

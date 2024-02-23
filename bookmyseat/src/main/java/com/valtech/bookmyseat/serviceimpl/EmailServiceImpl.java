@@ -195,8 +195,10 @@ public class EmailServiceImpl implements EmailService {
 		}
 	}
 
+	@Async
 	@Override
 	public void sendUpdateSeatEmailToUser(UserModifyBooking userModifyBooking) throws EmailException {
+		LOGGER.info("Sending email to user after the user seat has been modified");
 		try {
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
@@ -205,7 +207,7 @@ public class EmailServiceImpl implements EmailService {
 			String emailContent = getEmailContentForUpdateSeat(userModifyBooking);
 			helper.setText(emailContent, true);
 			mailSender.send(mimeMessage);
-			LOGGER.info("Sending email to user after the user seat has been modified");
+			LOGGER.info("Mail sent to user");
 		} catch (MessagingException e) {
 			throw new EmailException(ERROR_WHILE_OR_CREATING_SENDING_EMAIL, e);
 		} catch (MailException e) {
@@ -258,5 +260,45 @@ public class EmailServiceImpl implements EmailService {
 		mailSender.send(mimeMessage);
 
 		LOGGER.debug("OTP email sent successfully to {}", user.getEmailId());
+	}
+
+	@Async
+	@Override
+	public void sendCancelSeatEmailToUser(UserModifyBooking userModifyBooking) throws EmailException {
+		LOGGER.info("Sending email to user after the user seat has been canceled");
+		try {
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+			helper.setSubject("Seat - Update");
+			helper.setTo(userModifyBooking.getUserEmail());
+			String emailContent = getEmailContentForCancelSeat(userModifyBooking);
+			helper.setText(emailContent, true);
+			mailSender.send(mimeMessage);
+			LOGGER.info("Mail Sent to user");
+		} catch (MessagingException e) {
+			throw new EmailException(ERROR_WHILE_OR_CREATING_SENDING_EMAIL, e);
+		} catch (MailException e) {
+			throw new EmailException(ERROR_WHILE_SENDING_EMAIL, e);
+		}
+		
+	}
+
+	@Override
+	public String getEmailContentForCancelSeat(UserModifyBooking userModifyBooking) throws EmailException {
+		StringWriter stringWriter = new StringWriter();
+		Map<String, Object> model = new HashMap<>();
+		model.put("userModifyBooking", userModifyBooking);
+		model.put(USER_ID, String.valueOf(userModifyBooking.getUserId()));
+		try {
+			Template template = configuration.getTemplate("seatCancelMail.ftlh");
+			template.process(model, stringWriter);
+		} catch (TemplateNotFoundException e) {
+			throw new EmailException(TEMPLATE_NOT_FOUND, e);
+		} catch (IOException e) {
+			throw new EmailException(IO_EXCEPTION, e);
+		} catch (TemplateException e) {
+			throw new EmailException(TEMPLATE_EXCEPTION, e);
+		}
+		return stringWriter.getBuffer().toString();
 	}
 }

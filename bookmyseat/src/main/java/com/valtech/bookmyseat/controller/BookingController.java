@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.valtech.bookmyseat.entity.BookingMapping;
-import com.valtech.bookmyseat.entity.Seat;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
+import com.valtech.bookmyseat.model.BookedSeatModel;
 import com.valtech.bookmyseat.model.BookingDTO;
 import com.valtech.bookmyseat.model.BookingModel;
 import com.valtech.bookmyseat.model.SeatBookingResponse;
@@ -110,8 +110,11 @@ public class BookingController {
 	}
 
 	@GetMapping("/bookedSeat")
-	public List<Seat> getAllBookedSeat() {
-		
-		return bookingService.getAllBookedSeat();
+	public ResponseEntity<List<BookedSeatModel>> getAllBookedSeat() {
+		LOGGER.info("handling the request for fetch Booked seats");
+		List<BookedSeatModel> bookedSeats = bookingService.getAllBookedSeat();
+
+		return ResponseEntity.status(HttpStatus.OK).body(bookedSeats);
 	}
+
 }

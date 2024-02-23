@@ -123,15 +123,16 @@ public interface UserDAO {
 	 *
 	 * @param seatId    The ID of the seat to update.
 	 * @param bookingId The ID of the booking associated with the user's seat.
+	 * @return number of row updated
 	 */
-	void updateUserSeat(int seatId, int bookingId);
+	int updateUserSeat(int seatId, int bookingId);
 
 	/**
 	 * Cancels the user booking associated with the provided booking ID.
 	 *
 	 * @param bookingId The ID of the booking to cancel.
 	 */
-	void cancelUserBooking(int bookingId);
+	int cancelUserBooking(int bookingId);
 
 	/**
 	 * Retrieves the booking details for a particular user to display on their
@@ -239,4 +240,6 @@ public interface UserDAO {
 	 * @param newPassword The new password to be set for the user.
 	 */
 	void updateUseForgetPassword(int userId, String newPassword);
+	
+	Integer getSeatIdByBookingId(int bookingId) throws DataBaseAccessException;
 }

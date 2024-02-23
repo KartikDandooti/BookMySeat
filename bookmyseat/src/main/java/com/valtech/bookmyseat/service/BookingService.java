@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.valtech.bookmyseat.entity.Booking;
 import com.valtech.bookmyseat.entity.BookingMapping;
-import com.valtech.bookmyseat.entity.Seat;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
+import com.valtech.bookmyseat.model.BookedSeatModel;
 import com.valtech.bookmyseat.model.BookingDTO;
 import com.valtech.bookmyseat.model.BookingModel;
 
@@ -63,7 +63,15 @@ public interface BookingService {
 	 */
 	List<BookingDTO> getAllBookings() throws DataBaseAccessException;
 
-	void createBookingMapping(BookingModel booking, int bookingId);
+	void createBookingMapping(BookingModel booking, int bookingId) throws DataBaseAccessException;
 
-	List<Seat> getAllBookedSeat();
+	/**
+	 * Retrieves a list of all booked seats from the database.
+	 *
+	 * @return A list of {@code BookedSeatModel} objects representing all booked
+	 *         seats.
+	 * @throws DataBaseAccessException If there is an issue accessing the database
+	 *                                 or retrieving the booked seats.
+	 */
+	List<BookedSeatModel> getAllBookedSeat() throws DataBaseAccessException;
 }

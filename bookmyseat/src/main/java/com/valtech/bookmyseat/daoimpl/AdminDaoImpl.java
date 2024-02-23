@@ -69,20 +69,21 @@ public class AdminDaoImpl implements AdminDAO {
 	@Override
 	public List<BookingDetailsOfUserForAdminReport> getAllBookingDetailsOfUserForAdminReport() {
 		LOGGER.info("executing the query to fetch the bookinig details of all user");
-		String sql = "SELECT CONCAT(U.first_name, ' ', U.last_name) AS user_name, U.user_id, "
-				+ "S.seat_number, F.floor_name, SH.start_time, SH.end_time,B.start_date, "
-				+ "B.end_date,B.booking_type,BM.tea_coffee_type AS tea_coffee_type, "
-				+ "BM.parking_type AS parking_type,BM.lunch AS lunch FROM user U JOIN "
-				+ "booking B ON U.user_id = B.user_id " + "JOIN "
-				+ "booking_mapping BM ON B.booking_id = BM.booking_id AND BM.booking_date = CURDATE() " + "JOIN "
-				+ "seat S ON B.seat_id = S.seat_id JOIN floor F ON S.floor_id = F.floor_id JOIN "
-				+ "shift SH ON B.shift_id = SH.shift_id;";
+		String sql = "SELECT CONCAT(U.first_name, ' ', U.last_name) AS user_name,U.user_id,S.seat_number, "
+				+ "F.floor_name,SH.start_time, SH.end_time,B.start_date, "
+				+ "B.end_date, B.booking_type,MAX(BM.tea_coffee_type) AS tea_coffee_type, "
+				+ "MAX(BM.parking_type) AS parking_type, MAX(BM.lunch) AS lunch FROM user U "
+				+ "JOIN booking B ON U.user_id = B.user_id "
+				+ "JOIN booking_mapping BM ON B.booking_id = BM.booking_id " + "JOIN seat S ON B.seat_id = S.seat_id "
+				+ "JOIN floor F ON S.floor_id = F.floor_id JOIN shift SH ON B.shift_id = SH.shift_id "
+				+ "GROUP BY U.user_id, S.seat_number, F.floor_name, SH.start_time, SH.end_time, B.start_date, B.end_date,B.booking_type;";
+
 		LOGGER.debug("Excuting the SQL query to fetch All Booking details:{}", sql);
 
 		return jdbcTemplate.query(sql, new BookingDetailsOfUserForAdminReportMapper());
 	}
 
-	@Override 
+	@Override
 	public List<Reserved> reserveSeat() throws DataBaseAccessException {
 		LOGGER.info("Retrieving the details for reserved seats");
 		String sql = "SELECT user.user_id, user.first_name, reserved.reserved_status, reserved.reserved_id, seat.seat_id, seat.seat_number, seat.floor_id "

@@ -162,7 +162,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<BookingDetailsOfUserForAdminReport> getAllBookingDetails() {
+	public List<BookingDetailsOfUserForAdminReport> getAllBookingDetailsOfUserForAdminReport() {
 		LOGGER.info("fetching all the booking details");
 
 		return adminDAO.getAllBookingDetailsOfUserForAdminReport();

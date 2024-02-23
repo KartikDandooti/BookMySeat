@@ -111,6 +111,7 @@ public class BookingController {
 
 	@GetMapping("/bookedSeat")
 	public List<Seat> getAllBookedSeat() {
+		
 		return bookingService.getAllBookedSeat();
 	}
 }

@@ -242,7 +242,7 @@ public class AdminController {
 	public List<BookingDetailsOfUserForAdminReport> getAllBookingDetails() {
 		LOGGER.info("handling request to fetch all booking details");
 
-		return adminService.getAllBookingDetails();
+		return adminService.getAllBookingDetailsOfUserForAdminReport();
 	}
 
 	@GetMapping("/getAllUsers/{userId}")

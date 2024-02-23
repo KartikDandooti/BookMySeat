@@ -1,0 +1,60 @@
+<configuration>
+
+	<!-- Console appender for INFO level -->
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- Include class, method, and line number -->
+			<pattern>[%d][%-2thread] %highlight(%-5level)
+				%cyan(%logger{40}) -
+				%class.%method\(%line\) - %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- Only logs with INFO level and higher will be printed to the console -->
+			<level>INFO</level>
+		</filter>
+	</appender>
+
+	<!-- Rolling file appender -->
+	<appender name="ROLLING_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/bookmyseat.log</file>
+
+		<!-- Use both TimeBasedRollingPolicy and SizeAndTimeBasedRollingPolicy -->
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Roll over daily at midnight -->
+			<fileNamePattern>logs/bookmyseat-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+		</rollingPolicy>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- Roll over when the file size reaches 5KB -->
+			<maxFileSize>10KB</maxFileSize>
+			<!-- keep max 15 files -->
+			<maxHistory>10</maxHistory>
+			<!-- total logfile size less han 100MB -->
+			<totalSizeCap>10MB</totalSizeCap>
+			<fileNamePattern>logs/bookmyseat-%d{yyyy-MM-dd}-%i.log.gz
+			</fileNamePattern>
+		</rollingPolicy>
+
+		<encoder>
+			<!-- Include class, method, and line number -->
+			<pattern>[%d] [%-2thread] %-5level %logger{40} -
+				%class.%method\(%line\) - %msg%n</pattern>
+		</encoder>
+		<!-- No need for a ThresholdFilter for the file appender -->
+	</appender>
+
+	<!-- Root logger -->
+	<root level="info">
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+	<logger name="com.valtech.bookmyseat" level="debug">
+		<appender-ref ref="ROLLING_FILE" />
+	</logger>
+
+</configuration>

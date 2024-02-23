@@ -1,0 +1,22 @@
+INSERT INTO user (created_by, modified_by, modified_date, project_id, registered_date, restrain_id, role_id, user_id, phone_number, first_name, last_name, email_id, password, approval_status) 
+VALUES
+(5716, 5716, '2024-02-15', 1, '2024-02-15', NULL, 1, 5716, 1234567890, 'Kartik', 'Dandooti', 'kartik.dandooti@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'APPROVED'),
+(5711, 5711, '2024-02-15', 1, '2024-02-15', NULL, 2, 5711, 9876543210, 'Dhanush', 'V', 'dhanush.v@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'APPROVED'),
+(5727, 5727, '2024-02-15', 3, '2024-02-15', NULL, 2, 5727, 5554443333, 'Praveen', 'Megharaja', 'praveen.meghraj@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5740, 5740, '2024-02-15', 4, '2024-02-15', NULL, 2, 5740, 1112223333, 'Vijaylakshmi', 'kalasa', 'vijaylakshmi.kalasa@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5721, 5721, '2024-02-15', 5, '2024-02-15', NULL, 2, 5721, 9998887777, 'Mannjushree', 'J', 'manjushree.J@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5720, 5720, '2024-02-16', 5, '2024-02-16', NULL, 2, 5720, 9998887777, 'Supreet', 'P', 'supreet.pradhan@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5714, 5714, '2024-02-15', 5, '2024-02-15', NULL, 2, 5714, 9998887777, 'Harsha', 'Vardhan', 'harshavardhan.sd@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'APPROVED'),
+(5719, 5719, '2024-02-15', 5, '2024-02-15', NULL, 2, 5719, 9998887777, 'Maheshwari', 'Khelge', 'maheshwari.khelge@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5721, 5721, '2024-02-15', 5, '2024-02-15', NULL, 2, 5718, 9998887777, 'Jeevan', 'J', 'Jeevan.J@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5721, 5721, '2024-02-15', 5, '2024-02-15', NULL, 3, 5729, 9998887777, 'Ramya', 'HS', 'ramya.hs@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'APPROVED'),
+(5789, 5789, '2024-02-16', 2, '2024-02-16', NULL, 2, 5789, 4445556666, 'Alisha', 'Singh', 'alisha.singh@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'APPROVED'),
+(5760, 5760, '2024-02-16', 3, '2024-02-16', NULL, 2, 5760, 7778889999, 'Sachin', 'Kumar', 'sachin.kumar@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5798, 5798, '2024-02-16', 4, '2024-02-16', NULL, 2, 5798, 3332221111, 'Sneha', 'Sharma', 'sneha.sharma@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5802, 5802, '2024-02-16', 5, '2024-02-16', NULL, 2, 5802, 6667778888, 'Rahul', 'Verma', 'rahul.verma@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5775, 5775, '2024-02-16', 5, '2024-02-16', NULL, 2, 5775, 2223334444, 'Neha', 'Patel', 'neha.patel@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5793, 5793, '2024-02-16', 5, '2024-02-16', NULL, 2, 5793, 8889990000, 'Ravi', 'Gupta', 'ravi.gupta@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5781, 5781, '2024-02-16', 5, '2024-02-16', NULL, 2, 5781, 1112223333, 'Varun', 'Chauhan', 'varun.chauhan@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5754, 5754, '2024-02-16', 5, '2024-02-16', NULL, 2, 5754, 5556667777, 'Ananya', 'Mishra', 'ananya.mishra@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5806, 5806, '2024-02-16', 5, '2024-02-16', NULL, 2, 5806, 9990001111, 'Amit', 'Sharma', 'amit.sharma@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING'),
+(5769, 5769, '2024-02-16', 5, '2024-02-16', NULL, 2, 5769, 1110009999, 'Pooja', 'Yadav', 'pooja.yadav@valtech.com', '$2a$12$dDFHXbaABC2KOYDlNkZbauxbEhLbMp6cfG0UXT6HNmperOLuS8jVW', 'PENDING');

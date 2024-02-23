@@ -90,17 +90,21 @@ public interface EmailService {
 	void sendRejectionEmailToUser(User user) throws EmailException;
 
 	/**
-	 * Sends an update seat email to the user based on the provided UserModifyBooking object.
+	 * Sends an update seat email to the user based on the provided
+	 * UserModifyBooking object.
 	 * 
-	 * @param userModifyBooking The UserModifyBooking object containing details about the booking modification.
+	 * @param userModifyBooking The UserModifyBooking object containing details
+	 *                          about the booking modification.
 	 * @throws EmailException If there is an issue sending the email.
 	 */
 	void sendUpdateSeatEmailToUser(UserModifyBooking userModifyBooking) throws EmailException;
 
 	/**
-	 * Generates the email content for updating a seat based on the provided UserModifyBooking object.
+	 * Generates the email content for updating a seat based on the provided
+	 * UserModifyBooking object.
 	 * 
-	 * @param userModifyBooking The UserModifyBooking object containing details about the booking modification.
+	 * @param userModifyBooking The UserModifyBooking object containing details
+	 *                          about the booking modification.
 	 * @return A String representing the email content.
 	 * @throws EmailException If there is an issue generating the email content.
 	 */
@@ -109,23 +113,22 @@ public interface EmailService {
 	/**
 	 * Sends an OTP (One-Time Password) email to the user along with the OTP value.
 	 * 
-	 * @param user The user object to whom the OTP email is being sent.
+	 * @param user     The user object to whom the OTP email is being sent.
 	 * @param otpValue The OTP value to be included in the email.
 	 * @throws MessagingException If there is an issue with the messaging system.
-	 * @throws IOException If there is an issue with input/output operations.
-	 * @throws TemplateException If there is an issue with the email template.
+	 * @throws IOException        If there is an issue with input/output operations.
+	 * @throws TemplateException  If there is an issue with the email template.
 	 */
 	void sendOtpMailToUser(User user, String otpValue) throws MessagingException, IOException, TemplateException;
 
 	/**
 	 * Retrieves user OTP details including the OTP value.
 	 * 
-	 * @param user The user object for whom the OTP details are retrieved.
+	 * @param user     The user object for whom the OTP details are retrieved.
 	 * @param otpValue The OTP value associated with the user.
 	 * @return A String containing the user OTP details.
-	 * @throws IOException If there is an issue with input/output operations.
+	 * @throws IOException       If there is an issue with input/output operations.
 	 * @throws TemplateException If there is an issue with the email template.
 	 */
 	String getUserOtpDetails(User user, String otpValue) throws IOException, TemplateException;
-
 }

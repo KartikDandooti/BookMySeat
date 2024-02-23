@@ -1,11 +1,7 @@
 package com.valtech.bookmyseat.serviceImpl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -44,7 +40,7 @@ class ShiftServiceImplTest {
 
 	@Test
 	void testAddShiftTime_Success() throws DataAccessException, SQLException {
-		Shift shift = new Shift(/* provide necessary shift details */);
+		Shift shift = new Shift();
 		doNothing().when(shiftDetailsDao).addShiftTime(shift);
 		String result = shiftServiceImpl.addShiftTime(shift);
 		assertEquals("Shift Time added successfully", result);
@@ -63,7 +59,7 @@ class ShiftServiceImplTest {
 	@Test
 	void testUpdateShiftTime_Failure() throws DataAccessException, SQLException {
 		int id = 1;
-		Shift shift = new Shift(/* initialize shift object */);
+		Shift shift = new Shift();
 		String errorMessage = "Database connection failed";
 		doThrow(new DataAccessException(errorMessage) {
 			private static final long serialVersionUID = 1L;

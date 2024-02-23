@@ -15,8 +15,8 @@ import com.valtech.bookmyseat.dao.ShiftDAO;
 import com.valtech.bookmyseat.entity.Shift;
 
 @Repository
-public class ShiftServiceDaoImpl implements ShiftDAO {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShiftServiceDaoImpl.class);
+public class ShiftDaoImpl implements ShiftDAO {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ShiftDaoImpl.class);
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

@@ -15,7 +15,6 @@ import com.valtech.bookmyseat.entity.Booking;
 import com.valtech.bookmyseat.entity.Floor;
 import com.valtech.bookmyseat.entity.Seat;
 import com.valtech.bookmyseat.entity.Shift;
-import com.valtech.bookmyseat.entity.TeaAndCoffee;
 
 public class UserDashboardMapper implements RowMapper<Booking> {
 
@@ -33,32 +32,23 @@ public class UserDashboardMapper implements RowMapper<Booking> {
 
 	@Override
 	public Booking mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Booking booking = new Booking();
+		booking.setBookingId(rs.getInt("booking_id"));
+		booking.setStartDate(getLocalDateOrNull(rs, "start_date"));
+		booking.setEndDate(getLocalDateOrNull(rs, "end_date"));
+		Shift shift = new Shift();
+		shift.setShiftName(rs.getString("shift_name"));
+		shift.setStartTime(getLocalTimeOrNull(rs, "start_time"));
+		shift.setEndTime(getLocalTimeOrNull(rs, "end_time"));
+		Seat seat = new Seat();
+		seat.setSeatId(rs.getInt("seat_id"));
+		Floor floor = new Floor();
+		floor.setFloorId(rs.getInt("floor_id"));
+		floor.setFloorName(rs.getString("floor_name"));
+		seat.setFloor(floor);
+		booking.setShift(shift);
+		booking.setSeat(seat);
 
-//	@Override
-//	public Booking mapRow(@SuppressWarnings("null") ResultSet rs, int rowNum) throws SQLException {
-//		Booking booking = new Booking();
-//		booking.setBookingId(rs.getInt("booking_id"));
-//		booking.setStartDate(getLocalDateOrNull(rs, "start_date"));
-//		booking.setEndDate(getLocalDateOrNull(rs, "end_date"));
-//		booking.setLunch(rs.getBoolean("lunch"));
-//		booking.setTeaCoffeeType(TeaAndCoffee.valueOf(rs.getString("tea_coffee_type")));
-//		booking.setTeaCoffee(rs.getBoolean("tea_coffee"));
-//		Shift shift = new Shift();
-//		shift.setShiftName(rs.getString("shift_name"));
-//		shift.setStartTime(getLocalTimeOrNull(rs, "start_time"));
-//		shift.setEndTime(getLocalTimeOrNull(rs, "end_time"));
-//		Seat seat = new Seat();
-//		seat.setSeatId(rs.getInt("seat_id"));
-//		Floor floor = new Floor();
-//		floor.setFloorId(rs.getInt("floor_id"));
-//		floor.setFloorName(rs.getString("floor_name"));
-//		seat.setFloor(floor);
-//		booking.setShift(shift);
-//		booking.setSeat(seat);
-//
-//		return booking;
-//	}
+		return booking;
+	}
 }

@@ -25,21 +25,15 @@ public class SeatServiceImpl implements SeatService {
 
 	@Override
 	public List<Seat> getAvailableSeatsByFloorOnDate(BookingModel bookingModel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		try {
+			LOGGER.info("Fetching available Seats for a Floor Between startDate: {} and endDate: {}",
+					bookingModel.getStartDate(), bookingModel.getEndDate());
+			LOGGER.debug("Fetching seats by floor with floor id: {}", bookingModel.getFloorId());
 
-//	@Override
-//	public List<Seat> getAvailableSeatsByFloorOnDate(BookingModel bookingModel) {
-//		try {
-//			LOGGER.info("Fetching available Seats for a Floor Between startDate: {} and endDate: {}",
-//					bookingModel.getStartDate(), bookingModel.getEndDate());
-//			LOGGER.debug("Fetching seats by floor with floor id: {}", bookingModel.getFloorId());
-//
-//			return seatDAO.findAvailableSeatsByFloorOnDate(bookingModel.getFloorId(), bookingModel.getStartDate(),
-//					bookingModel.getEndDate());
-//		} catch (DataBaseAccessException e) {
-//			throw new DataBaseAccessException("Failed to get all seats by floor !");
-//		}
-//	}
+			return seatDAO.findAvailableSeatsByFloorOnDate(bookingModel.getFloorId(), bookingModel.getStartDate(),
+					bookingModel.getEndDate());
+		} catch (DataBaseAccessException e) {
+			throw new DataBaseAccessException("Failed to get all seats by floor !");
+		}
+	}
 }

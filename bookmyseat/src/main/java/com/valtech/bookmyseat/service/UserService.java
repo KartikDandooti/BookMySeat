@@ -223,5 +223,4 @@ public interface UserService {
 	 * @return True if the password is updated successfully; otherwise, false.
 	 */
 	boolean updateUserForgotPassword(int userId, String newPassword);
-
 }

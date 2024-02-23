@@ -136,7 +136,6 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public List<Seat> getAllBookedSeat() {
-
 		return bookingDAO.getAllBookedSeat();
 	}
 }

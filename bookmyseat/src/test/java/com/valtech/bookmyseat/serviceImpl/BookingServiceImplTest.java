@@ -2,7 +2,6 @@ package com.valtech.bookmyseat.serviceImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -63,22 +62,6 @@ class BookingServiceImplTest {
 		});
 		assertThrows(CustomDataAccessException.class, () -> bookingService.getUserPreferredSeats(floorId, projectId));
 	}
-
-//	@Test
-//	void testCreateBooking() {
-//		User user = new User();
-//		user.setUserId(123);
-//		BookingModel booking = new BookingModel();
-//		booking.setUserId(user.getUserId());
-//		booking.setSeatId(456);
-//		booking.setShiftId(789);
-//		Seat seat = new Seat();
-//		when(seatDAO.findSeatById(456)).thenReturn(seat);
-//		Shift shift = new Shift();
-//		when(shiftDAO.findShiftByShiftId(789)).thenReturn(shift);
-//		bookingService.createBooking(booking, user);
-//		verify(bookingDAO).createBooking(booking, user, seat, shift);
-//	}
 
 	@Test
 	void testGetAllBookings_Success() {

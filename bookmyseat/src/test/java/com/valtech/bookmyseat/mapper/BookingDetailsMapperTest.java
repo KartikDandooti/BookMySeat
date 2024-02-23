@@ -13,8 +13,8 @@ class BookingDetailsMapperTest {
 	@Mock
 	private ResultSet resultSet;
 
-	@InjectMocks
-	private BookingDetailsMapper bookingDetailsMapper;
+//	@InjectMocks
+//	private BookingDetailsMapper bookingDetailsMapper;
 //
 //	@Test
 //	void testMapRow() throws SQLException {

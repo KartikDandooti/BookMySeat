@@ -192,7 +192,7 @@ class AdminServiceImplTest {
 		List<BookingDetailsOfUserForAdminReport> mockBookingDetailsList = new ArrayList<>();
 		mockBookingDetailsList.add(new BookingDetailsOfUserForAdminReport());
 		when(adminDAO.getAllBookingDetailsOfUserForAdminReport()).thenReturn(mockBookingDetailsList);
-		List<BookingDetailsOfUserForAdminReport> result = adminServiceImpl.getAllBookingDetails();
+		List<BookingDetailsOfUserForAdminReport> result = adminServiceImpl.getAllBookingDetailsOfUserForAdminReport();
 		verify(adminDAO).getAllBookingDetailsOfUserForAdminReport();
 		Assertions.assertEquals(mockBookingDetailsList.size(), result.size());
 	}

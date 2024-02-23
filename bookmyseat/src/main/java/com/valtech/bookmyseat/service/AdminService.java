@@ -137,5 +137,5 @@ public interface AdminService {
 	 *
 	 * @return a list containing all booking details
 	 */
-	List<BookingDetailsOfUserForAdminReport> getAllBookingDetails();
+	List<BookingDetailsOfUserForAdminReport> getAllBookingDetailsOfUserForAdminReport();
 }

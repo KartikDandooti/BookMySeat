@@ -133,4 +133,10 @@ public class BookingServiceImpl implements BookingService {
 			throw new CustomDataAccessException("Failed to update User's attendance !", e);
 		}
 	}
+
+	@Override
+	public List<Seat> getAllBookedSeat() {
+
+		return bookingDAO.getAllBookedSeat();
+	}
 }

@@ -9,6 +9,7 @@ import com.valtech.bookmyseat.entity.Project;
 import com.valtech.bookmyseat.entity.Reserved;
 import com.valtech.bookmyseat.entity.Restrain;
 import com.valtech.bookmyseat.entity.Role;
+import com.valtech.bookmyseat.entity.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,8 +37,24 @@ public class UserModel {
 	private Restrain restrain;
 	private int projectId;
 
-//	public User getUserDetails() {
-//		return new User(userId, emailId, firstName, lastName, password, approvalStatus, phoneNumber, registeredDate,
-//				modifiedDate, createdBy, modifiedBy, role, project, booking, reserved, restrain);
-//	}
+	public User getUserDetails() {
+		User user = new User();
+		user.setUserId(userId);
+		user.setEmailId(emailId);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setPassword(password);
+		user.setApprovalStatus(approvalStatus);
+		user.setPhoneNumber(phoneNumber);
+		user.setRegisteredDate(registeredDate);
+		user.setModifiedDate(modifiedDate);
+		user.setCreatedBy(createdBy);
+		user.setModifiedBy(modifiedBy);
+		user.setRole(role);
+		user.setProject(project);
+		user.setBooking(booking);
+		user.setReserved(reserved);
+		user.setRestrain(restrain);
+		return user;
+	}
 }

@@ -300,12 +300,13 @@ public class UserDaoImpl implements UserDAO {
 		return otpValue;
 	}
 
-//	@Override
-//	public void saveOtp(Otp otp) {
-//		String saveOtp = "INSERT INTO otp (user_id, otp_value) VALUES (?, ?)";
-//		rowsAffected = jdbcTemplate.update(saveOtp, otp.get, otp.getOtpValue());
-//		LOGGER.debug("Saving otpValue {} and userId {} into the otp table ", otp.getOtpValue(), otp.getUserId());
-//	}
+	@Override
+	public void saveOtp(Otp otp) {
+		String saveOtp = "INSERT INTO otp (user_id, otp_value) VALUES (?, ?)";
+		rowsAffected = jdbcTemplate.update(saveOtp, otp.getUser().getUserId(), otp.getOtpValue());
+		LOGGER.debug("Saving otpValue {} and userId {} into the otp table ", otp.getOtpValue(),
+				otp.getUser().getUserId());
+	}
 
 	@Override
 	public int getRowsAffected() {
@@ -313,6 +314,7 @@ public class UserDaoImpl implements UserDAO {
 
 		return rowsAffected;
 	}
+
 	@Override
 	public void updateUseForgetPassword(int userId, String newPassword) {
 		String updateUserPasswordQuery = "UPDATE user SET password = ? WHERE user_id = ?";

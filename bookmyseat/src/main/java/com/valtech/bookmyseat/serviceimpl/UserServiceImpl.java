@@ -1,5 +1,6 @@
 package com.valtech.bookmyseat.serviceimpl;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import com.valtech.bookmyseat.configuration.JwtTokenProvider;
 import com.valtech.bookmyseat.dao.UserDAO;
 import com.valtech.bookmyseat.entity.Booking;
+import com.valtech.bookmyseat.entity.Otp;
 import com.valtech.bookmyseat.entity.User;
 import com.valtech.bookmyseat.exception.CustomDataAccessException;
 import com.valtech.bookmyseat.exception.DataBaseAccessException;
@@ -35,6 +37,9 @@ import com.valtech.bookmyseat.model.UserModel;
 import com.valtech.bookmyseat.model.UserModifyBooking;
 import com.valtech.bookmyseat.service.EmailService;
 import com.valtech.bookmyseat.service.UserService;
+
+import freemarker.template.TemplateException;
+import jakarta.mail.MessagingException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -230,53 +235,53 @@ public class UserServiceImpl implements UserService {
 		return generatedOtp;
 	}
 
-//	@Override
-//	public boolean generateUserOtp(String emailId) {
-//		LOGGER.debug("Generating OTP for email: {}", emailId);
-//		User user = userDAO.getUserByEmail(emailId);
-//		if (Objects.isNull(user)) {
-//			throw new NullPointerException("User not found for email: " + emailId);
-//		}
-//		Otp otp = new Otp();
-//		otp.setUserId(user.getUserId());
-//		otp.setOtpValue(generateRandomOtp());
-//		LOGGER.debug("Generated OTP for email {}: {}", emailId, otp.getOtpValue());
-//		userDAO.saveOtp(otp);
-//
-//		return true;
-//	}
+	@Override
+	public boolean generateUserOtp(String emailId) {
+		LOGGER.debug("Generating OTP for email: {}", emailId);
+		User user = userDAO.getUserByEmail(emailId);
+		if (Objects.isNull(user)) {
+			throw new NullPointerException("User not found for email: " + emailId);
+		}
+		Otp otp = new Otp();
+		otp.setUser(user);
+		otp.setOtpValue(generateRandomOtp());
+		LOGGER.debug("Generated OTP for email {}: {}", emailId, otp.getOtpValue());
+		userDAO.saveOtp(otp);
 
-//	@Override
-//	public String handleForgotPassword(String emailId) throws MessagingException, IOException, TemplateException {
-//		LOGGER.debug("Handling forgot password request for email: {}", emailId);
-//		User user = userDAO.getUserByEmail(emailId);
-//		if (Objects.nonNull(user)) {
-//			boolean otpGenerationResult = generateUserOtp(emailId);
-//			LOGGER.debug("OTP generation result for user {}: {}", user.getUserId(), otpGenerationResult);
-//			if (otpGenerationResult) {
-//				String otpValue = userDAO.getLatestOtpByUserId(user.getUserId());
-//				LOGGER.debug("Most recent OTP requested by user {}: {}", user.getUserId(), otpValue);
-//				if (Objects.nonNull(otpValue)) {
-//					emailService.sendOtpMailToUser(user, otpValue);
-//					LOGGER.debug("Sent OTP email to user {}", user.getUserId());
-//
-//					return "OTP has successfully been sent, please check your provided email";
-//				} else {
-//					LOGGER.debug("No OTP value found for user {}", user.getUserId());
-//
-//					return "Please check your email";
-//				}
-//			} else {
-//				LOGGER.debug("Failed to generate OTP for user {}", user.getUserId());
-//
-//				return "Failed to generate OTP";
-//			}
-//		} else {
-//			LOGGER.debug("User with email {} doesn't exist", emailId);
-//
-//			return "User doesn't exist";
-//		}
-//	}
+		return true;
+	}
+
+	@Override
+	public String handleForgotPassword(String emailId) throws MessagingException, IOException, TemplateException {
+		LOGGER.debug("Handling forgot password request for email: {}", emailId);
+		User user = userDAO.getUserByEmail(emailId);
+		if (Objects.nonNull(user)) {
+			boolean otpGenerationResult = generateUserOtp(emailId);
+			LOGGER.debug("OTP generation result for user {}: {}", user.getUserId(), otpGenerationResult);
+			if (otpGenerationResult) {
+				String otpValue = userDAO.getLatestOtpByUserId(user.getUserId());
+				LOGGER.debug("Most recent OTP requested by user {}: {}", user.getUserId(), otpValue);
+				if (Objects.nonNull(otpValue)) {
+					emailService.sendOtpMailToUser(user, otpValue);
+					LOGGER.debug("Sent OTP email to user {}", user.getUserId());
+
+					return "OTP has successfully been sent, please check your provided email";
+				} else {
+					LOGGER.debug("No OTP value found for user {}", user.getUserId());
+
+					return "Please check your email";
+				}
+			} else {
+				LOGGER.debug("Failed to generate OTP for user {}", user.getUserId());
+
+				return "Failed to generate OTP";
+			}
+		} else {
+			LOGGER.debug("User with email {} doesn't exist", emailId);
+
+			return "User doesn't exist";
+		}
+	}
 
 	@Override
 	public boolean verifyOtp(int userId, String enteredOtp) {

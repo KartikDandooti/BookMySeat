@@ -1,7 +1,6 @@
 package com.valtech.bookmyseat.dao;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import com.valtech.bookmyseat.entity.Booking;
@@ -67,4 +66,6 @@ public interface BookingDAO {
 	boolean hasAlreadyBookedForDate(int userId, LocalDate startDate, LocalDate endDate);
 
 	void createBookingMapping(BookingModel booking, int bookingId);
+
+	List<Seat> getAllBookedSeat();
 }

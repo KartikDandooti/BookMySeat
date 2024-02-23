@@ -223,7 +223,7 @@ public interface UserDAO {
 	 * 
 	 * @param otp The OTP object to be saved.
 	 */
-	//void saveOtp(Otp otp);
+	void saveOtp(Otp otp);
 
 	/**
 	 * Retrieves the number of rows affected by the last database operation.
